@@ -1,0 +1,30 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        
+        def solve(n):
+            if n == 0:
+                return nums[0]
+            if n == 1:
+                return max(nums[0], nums[1])
+            
+            return max(solve(n - 1), nums[n] + solve(n - 2))
+        
+        def solve2(n):
+            if n == 0:
+                return nums[0]
+            
+            if n == 1:
+                return max(nums[0], nums[1])
+            
+            if dp[n] != -1:
+                return dp[n]
+            
+            dp[n] = max(solve2(n - 1), nums[n] + solve2(n - 2))
+            return dp[n]
+        
+        # return solve(len(nums) - 1)
+        n = len(nums)
+
+        dp = [-1] * (n + 1)
+        return solve2(n - 1)
+
